@@ -1,6 +1,8 @@
 import "dotenv/config";
 import { Bot, InlineKeyboard, InputFile } from "grammy";
 import process from "node:process";
+import { readdir } from "node:fs/promises";
+import { join } from "node:path";
 
 // buat bot atau buat sesuatu disini
 const main = new Bot(process.env.TOKEN!)
@@ -32,9 +34,28 @@ main.command("hitung", (ctx) => {
     ctx.reply(`n= ${f}`);
 });
 
+//kirim foto
 main.command("foto", async (ctx) => {
-    await ctx.replyWithPhoto(new InputFile("./image/IMG-20261106-WA0137.jpg"),
-        { caption: "noh bokep" });
+    //path
+    const imageDir = "./image";
+    
+    // ambil semua foto dari path
+    const files = await readdir(imageDir);
+    
+    //filter foto
+    const gambar = files.filter(file => 
+        /\.(jpeg|jpg|png|webp)$/i.test(file)
+    );
+
+    //return kalo ga ada gambar
+    if (gambar.length == 0) {
+        return ctx.reply("ga ada gambar");
+    }
+
+    //kalo ada,kirim
+    for (const file of gambar) {
+        await ctx.replyWithPhoto(new InputFile(join(imageDir, file)));
+    }
 });
 
 main.callbackQuery("test1", async (ctx) => {

@@ -1,17 +1,18 @@
 import "dotenv/config";
-import { Bot, InlineKeyboard } from "grammy";
+import { Bot, InlineKeyboard, InputFile } from "grammy";
 import process from "node:process";
 
-// buat bot
+// buat bot atau buat sesuatu disini
 const main = new Bot(process.env.TOKEN!)
 const menu = new InlineKeyboard()
     .text("tes", "test1")
     .text("tes2", "test2");
+const hitung = new Map<number, number>();
 
 // nangkep error
-main.catch((err) => console.error("terjadi kesalahan:", err.message));
+main.catch((err) => console.error("terjadi kesalahan:", err));
 
-// command: /start dan /help
+// command disini
 main.command("start", (ctx) => {
     ctx.reply("200 OK");
 });
@@ -20,8 +21,20 @@ main.command("help", (ctx) => {
     ctx.reply("kirim pesan apa aja bre,ntar ku ulangi");
 });
 
-main.command("menu", (ctx) => {
+// munculin tombol dibawah pesan saat /menu dipanggil
+main.command("tombol", (ctx) => {
     ctx.reply("choose one baby:", { reply_markup: menu });
+});
+
+main.command("hitung", (ctx) => {
+    const id = ctx.from!.id;
+    const f = (hitung.get(id) ?? 0) + 1;
+    ctx.reply(`n= ${f}`);
+});
+
+main.command("foto", async (ctx) => {
+    await ctx.replyWithPhoto(new InputFile("./image/IMG-20261106-WA0137.jpg"),
+        { caption: "noh bokep" });
 });
 
 main.callbackQuery("test1", async (ctx) => {

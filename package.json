@@ -1,0 +1,25 @@
+{
+  "name": "aikabot",
+  "version": "1.0.0",
+  "description": "",
+  "license": "MIT",
+  "author": "kpin331",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  },
+  "dependencies": {
+    "dotenv": "^18.0.9",
+    "grammy": "^1.46.0"
+  }
+}

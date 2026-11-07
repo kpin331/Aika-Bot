@@ -17,6 +17,7 @@ foto.command("foto", async (ctx) => {
         await ctx.replyWithPhoto(
             new InputFile(join(imageDir, file))
         );
-        await ctx.reply(`gambar terkirim ${gambar.length}`);
     }
+
+    await ctx.reply(`gambar terkirim ${gambar.length}`);
 });
